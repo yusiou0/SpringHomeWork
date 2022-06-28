@@ -48,10 +48,14 @@ public class MemberController{
 	}
 	
 	@PostMapping(path = "/member")
-	public String processCreate( Member member,@RequestParam("image")MultipartFile mf) throws IOException {
-		File imageFile = new File(System.currentTimeMillis() + "_" + mf.getOriginalFilename());
-		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFile.getName());
-		mf.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
+	public String processCreate( Member member,MultipartFile imageFile) throws IOException {
+		System.out.println(member);
+		System.out.println(imageFile.getOriginalFilename());
+		
+		String imageFileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFileName);
+		
+		imageFile.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
 		member.setImage("membersImg" + File.separator + savedFile.getName());
 		memberService.save(member);
 		return "redirect:members";

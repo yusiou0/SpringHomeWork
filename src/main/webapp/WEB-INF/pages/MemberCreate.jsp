@@ -124,7 +124,7 @@
 						<img class="img-fluid mx-auto mb-4" id="preview_progressbarTW_img" src="#"
 							alt="請選擇您的照片" style="width: 320px; height: 200px;"> 
 						<input
-							class="form-control" type="file" name="image" id="imgInp"
+							class="form-control" type="file" name="imageFile" id="imgInp"
 							accept="image/jpeg, image/png">
 					</div>
 				</div>
