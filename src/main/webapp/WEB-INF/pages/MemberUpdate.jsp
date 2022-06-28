@@ -114,7 +114,7 @@
 							style="width: 260px; height: 320px;"> <input type="hidden"
 							class="form-control" name="image"
 							value="${member.image }"> <input
-							class="form-control" type="file" name="image" id="imgInp"
+							class="form-control" type="file" name="imageFile" id="imgInp"
 							accept="image/jpeg, image/png">
 					</div>
 				</div>

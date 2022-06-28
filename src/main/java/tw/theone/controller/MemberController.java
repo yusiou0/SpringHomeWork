@@ -49,8 +49,6 @@ public class MemberController{
 	
 	@PostMapping(path = "/member")
 	public String processCreate( Member member,MultipartFile imageFile) throws IOException {
-		System.out.println(member);
-		System.out.println(imageFile.getOriginalFilename());
 		
 		String imageFileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
 		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFileName);
@@ -60,28 +58,6 @@ public class MemberController{
 		memberService.save(member);
 		return "redirect:members";
 	}
-	
-//	@PostMapping(path = "/member")
-//	public String processCreate(
-//			@RequestParam String userid,
-//			@RequestParam String pwd,
-//			@RequestParam String username,
-//			@RequestParam String gender,
-//			@RequestParam Date birth,  
-//			@RequestParam String tele,
-//			@RequestParam String phone,
-//			@RequestParam String address,
-//			@RequestParam String email,
-//			@RequestParam Integer point,
-//			@RequestParam("image")MultipartFile mf) throws IOException {
-//		Member member = new Member(userid, pwd, username, gender, birth, tele, phone, address, email, point, email);
-//		File imageFile = new File(System.currentTimeMillis() + "_" + mf.getOriginalFilename());
-//		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFile.getName());
-//		mf.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
-//		member.setImage("membersImg" + File.separator + savedFile.getName());
-//		memberService.save(member);
-//		return "redirect:members";
-//	}
 	
 	
 	//建立在tomcat的資料夾
@@ -103,42 +79,18 @@ public class MemberController{
 		return "MemberUpdate";
 	}
 	
-	
-	//上程寫法
-//	@PostMapping(path = "/memberupdate")
-//	public String processUpdate(Member member, @RequestParam("image")MultipartFile mf) throws IOException {
-//		File imageFile = new File(System.currentTimeMillis() + "_" + mf.getOriginalFilename());
-//		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFile.getName());
-//		mf.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
-//		member.setImage("membersImg" + File.separator + savedFile.getName());
-//		memberService.updateMember(member);
-//		return "redirect:/members";  //重導至 path:    /members
-//	}
-	
 	@PostMapping(path = "/memberupdate")
-	public String processUpdate(
-			@RequestParam Integer idNumber,
-			@RequestParam String userid,
-			@RequestParam String pwd,
-			@RequestParam String username,
-			@RequestParam String gender,
-			@RequestParam Date birth,  
-			@RequestParam String tele,
-			@RequestParam String phone,
-			@RequestParam String address,
-			@RequestParam String email,
-			@RequestParam Integer point,
-			@RequestParam("image")MultipartFile mf) throws IOException {
-		Member member = new Member(idNumber, userid, pwd, username, gender, birth, tele, phone, address, email, point);
-		File imageFile = new File(System.currentTimeMillis() + "_" + mf.getOriginalFilename());
-		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFile.getName());
-		mf.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
+	public String processUpdate( Member member, MultipartFile imageFile) throws IOException {
+		
+		String imageFileName = System.currentTimeMillis() + "_" + imageFile.getOriginalFilename();
+		File savedFile = new File(uploadDirInit().getAbsolutePath(), imageFileName);
+		
+		imageFile.transferTo(savedFile); // 將上傳的照片資源寫進(轉移複製)savedFile
 		member.setImage("membersImg" + File.separator + savedFile.getName());
-		
-		
 		memberService.updateMember(member);
-		return "redirect:/members";  //重導至 path:    /members
+		return "redirect:members";
 	}
+	
 	
 
 	// DELETE
